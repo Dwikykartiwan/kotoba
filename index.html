@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kotoba Game - Minna no Nihongo I & II</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+.jp{font-family:"Zen Maru Gothic",sans-serif}
+*{ -webkit-tap-highlight-color:transparent }
+@keyframes hyottokoBounce{0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-5px) rotate(2deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+</style>
+</head>
+
+<body class="min-h-screen bg-[#fffef9] text-[#1c1917]" style="font-family:'Plus Jakarta Sans',sans-serif">
+<div id="root"></div>
+<script type="module">
+import React from "https://esm.sh/react@18.3.1";
+import ReactDOM from "https://esm.sh/react-dom@18.3.1/client";
+const { useState, useEffect, useRef, Fragment } = React;
+const h = React.createElement;
+
+
+function BookSelect({onSelect}){
+  const [showComingSoon,setShowComingSoon] = useState(false);
+  if(showComingSoon){
+    return h("div",{className:"min-h-screen bg-[#fffef9] flex flex-col", children:[
+      h("div",{className:"max-w-[760px] mx-auto w-full px-5 pt-10 pb-10 flex-1 flex flex-col", children:[
+        h("div",{className:"flex items-center gap-3", children:[
+          h("button",{onClick:()=>setShowComingSoon(false), className:"w-10 h-10 rounded-[12px] bg-white border border-[#e7e5e4] grid place-items-center text-[14px] font-black hover:border-[#1c1917] transition-colors", children:"←"}),
+          h("div",{className:"w-10 h-10 rounded-[12px] bg-[#ea580c] grid place-items-center text-white font-black text-[18px] shadow-sm", children:"Ⅱ"}),
+          h("div",{children:[
+            h("div",{className:"jp font-black text-[16px] leading-tight", children:"Minna no Nihongo II"}),
+            h("div",{className:"text-[10px] font-bold tracking-[0.18em] text-[#57534e]", children:"COMING SOON"})
+          ]})
+        ]}),
+        h("div",{className:"mt-10 bg-white border border-[#e7e5e4] rounded-[24px] p-8 text-center shadow-[0_2px_20px_rgba(0,0,0,0.04)] relative overflow-hidden", children:[
+          h("div",{className:"absolute top-0 left-0 right-0 h-[4px] bg-[#ea580c]"}),
+          h("div",{className:"mx-auto w-20 h-20 rounded-[20px] bg-[#fff7ed] border border-[#fed7aa] grid place-items-center mb-5", children:[
+            h("img",{src:"./hyottoko.png", alt:"hyottoko", className:"w-14 h-14 object-contain", style:{animation:"hyottokoBounce 1.2s ease-in-out infinite"}})
+          ]}),
+          h("h2",{className:"jp font-black text-[28px]", children:"Segera Hadir!"}),
+          h("p",{className:"mt-3 text-[13px] text-[#78716c]", children:"Buku II masih disiapin. Main Buku I dulu ya!"}),
+          h("div",{className:"mt-6 grid gap-3", children:[
+            h("button",{onClick:()=>onSelect(1), className:"w-full h-[48px] rounded-[14px] bg-[#1e3a8a] text-white font-bold text-[13px]", children:"Main Buku I dulu →"}),
+            h("button",{onClick:()=>setShowComingSoon(false), className:"w-full h-[44px] rounded-[14px] bg-white border border-[#e7e5e4] font-bold text-[13px]", children:"Kembali"})
+          ]})
+        ]})
+      ]})
+    ]})
+  }
+  return h("div",{className:"min-h-screen bg-[#fffef9] flex flex-col", children:[
+      h("div",{className:"max-w-[760px] mx-auto w-full px-5 pt-10 pb-10 flex-1 flex flex-col", children:[
+        h("div",{className:"flex items-center gap-3", children:[
+          h("div",{className:"w-10 h-10 rounded-[12px] bg-[#1e3a8a] grid place-items-center text-white font-black text-[18px] shadow-sm", children:"み"}),
+          h("div",{children:[
+            h("div",{className:"jp font-black text-[16px] leading-tight", children:"Kotoba Game"}),
+            h("div",{className:"text-[10px] font-bold tracking-[0.18em] text-[#57534e]", children:"MINNA NO NIHONGO"})
+          ]})
+        ]}),
+        h("div",{className:"mt-10", children:[
+          h("h1",{className:"jp text-[32px] font-black leading-[0.95] tracking-tight", children:[ "Mau belajar", h("br"), h("span",{className:"text-[#1e3a8a]"},"buku yang mana?") ]}),
+          h("p",{className:"mt-3 text-[13px] font-semibold text-[#78716c] leading-relaxed", children:"Pilih dulu bukunya. Nanti BAB-nya muncul sesuai buku."})
+        ]}),
+        h("div",{className:"mt-8 grid gap-4", children:[
+          h("button",{onClick:()=>onSelect(1), className:"group relative text-left bg-white border border-[#e7e5e4] rounded-[24px] p-5 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#1e3a8a]/30 transition-all active:scale-[0.98] overflow-hidden", children:[
+            h("div",{className:"absolute top-0 left-0 right-0 h-[4px] bg-[#1e3a8a]"}),
+            h("div",{className:"flex gap-4", children:[
+              h("div",{className:"w-[64px] h-[64px] rounded-[16px] bg-[#eff6ff] border border-[#dbeafe] grid place-items-center text-[28px] font-black text-[#1e3a8a] shrink-0", children:"Ⅰ"}),
+              h("div",{className:"flex-1 min-w-0", children:[
+                h("div",{className:"flex items-center gap-2", children:[
+                  h("span",{className:"jp font-black text-[18px]", children:"Minna no Nihongo Ⅰ"}),
+                  h("span",{className:"px-2 h-[20px] rounded-full bg-[#1e3a8a] text-white text-[10px] font-black grid place-items-center", children:"N5"})
+                ]}),
+                h("div",{className:"mt-1 text-[12px] font-bold text-[#57534e]", children:"Shokyuu 1 • BAB 1 - 25 • 867 kotoba"}),
+                h("div",{className:"mt-2 flex flex-wrap gap-1.5", children:[
+                  h("span",{className:"px-2 py-1 rounded-full bg-[#f5f0e8] text-[10px] font-bold text-[#57534e]", children:"Desu/masu"}),
+                  h("span",{className:"px-2 py-1 rounded-full bg-[#f5f0e8] text-[10px] font-bold text-[#57534e]", children:"Ichidan/Godan"}),
+                  h("span",{className:"px-2 py-1 rounded-full bg-[#f5f0e8] text-[10px] font-bold text-[#57534e]", children:"Counter つ"})
+                ]})
+              ]}),
+              h("div",{className:"w-8 h-8 rounded-full bg-[#1e3a8a] text-white grid place-items-center text-[14px] font-bold group-hover:translate-x-0.5 transition-transform", children:"→"})
+            ]})
+          ]}),
+          h("button",{onClick:()=>setShowComingSoon(true), className:"group relative text-left bg-white border border-[#e7e5e4] rounded-[24px] p-5 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:border-[#ea580c]/30 transition-all active:scale-[0.98] overflow-hidden", children:[
+            h("div",{className:"absolute top-0 left-0 right-0 h-[4px] bg-[#ea580c]"}),
+            h("div",{className:"flex gap-4", children:[
+              h("div",{className:"w-[64px] h-[64px] rounded-[16px] bg-[#fff7ed] border border-[#fed7aa] grid place-items-center text-[28px] font-black text-[#ea580c] shrink-0", children:"Ⅱ"}),
+              h("div",{className:"flex-1 min-w-0", children:[
+                h("div",{className:"flex items-center gap-2", children:[
+                  h("span",{className:"jp font-black text-[18px]", children:"Minna no Nihongo Ⅱ"}),
+                  h("span",{className:"px-2 h-[20px] rounded-full bg-[#ea580c] text-white text-[10px] font-black grid place-items-center", children:"N4"})
+                ]}),
+                h("div",{className:"mt-1 text-[12px] font-bold text-[#57534e]", children:"Shokyuu 2 • BAB 26 - 50 • Soon"}),
+                h("div",{className:"mt-2 flex flex-wrap gap-1.5", children:[
+                  h("span",{className:"px-2 py-1 rounded-full bg-[#f5f0e8] text-[10px] font-bold text-[#57534e]", children:"Keigo"}),
+                  h("span",{className:"px-2 py-1 rounded-full bg-[#f5f0e8] text-[10px] font-bold text-[#57534e]", children:"Jishokei"}),
+                  h("span",{className:"px-2 py-1 rounded-full bg-[#fff7ed] border border-[#fed7aa] text-[10px] font-bold text-[#9a3412]", children:"Nado!"})
+                ]})
+              ]}),
+              h("div",{className:"w-8 h-8 rounded-full bg-[#1c1917] text-white grid place-items-center text-[14px] font-bold group-hover:translate-x-0.5 transition-transform", children:"→"})
+            ]})
+          ]})
+        ]}),
+        h("div",{className:"mt-auto pt-8 text-center", children:[
+          h("div",{className:"text-[10px] font-bold tracking-[0.18em] text-[#a8a29e]", children:"© DWIKY KARTIWAN • 2026"}),
+          h("div",{className:"mt-2 text-[11px] text-[#78716c] font-medium", children:"Tip: Buku 1 dulu sampe lancar, baru Buku 2. Ganbatte!"})
+        ]})
+      ]})
+    ]})
+}
+
+
+function Game({book, onBack}){
+  const [e,setE] = useState(null);
+  const [loading,setLoading] = useState(true);
+  const [err,setErr] = useState(false);
+  const [showRomaji,setShowRomaji] = useState(false);
+  const [currentBab,setCurrentBab] = useState(0);
+  const [questions,setQuestions] = useState([]);
+  const [qIndex,setQIndex] = useState(0);
+  const [score,setScore] = useState(0);
+  const [timer,setTimer] = useState(0);
+  const [answered,setAnswered] = useState(false);
+  const [picked,setPicked] = useState("");
+  const [options,setOptions] = useState([]);
+  const [finished,setFinished] = useState(false);
+  const [mode,setMode] = useState("indo-jp");
+  const [keySeed,setKeySeed] = useState(0);
+  const timerRef = useRef(null);
+  const babScrollRef = useRef(null);
+  const [canScrollLeft,setCanScrollLeft] = useState(false);
+  const [canScrollRight,setCanScrollRight] = useState(false);
+  const updateScroll = ()=>{
+    const el = babScrollRef.current;
+    if(!el) return;
+    setCanScrollLeft(el.scrollLeft > 5);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 5);
+  };
+  const scrollBab = (dir)=>{
+    const el = babScrollRef.current;
+    if(!el) return;
+    el.scrollBy({left: dir*160, behavior:"smooth"});
+  };
+  useEffect(()=>{
+    const t1 = setTimeout(updateScroll, 200);
+    const t2 = setTimeout(updateScroll, 600);
+    const el = babScrollRef.current;
+    if(el){
+      el.addEventListener('scroll', updateScroll);
+      window.addEventListener('resize', updateScroll);
+    }
+    return ()=>{ clearTimeout(t1); clearTimeout(t2); if(el){ el.removeEventListener('scroll', updateScroll); window.removeEventListener('resize', updateScroll);} }
+  },[e]);
+
+  useEffect(()=>{
+    if(e){ const t=setTimeout(updateScroll,200); return ()=>clearTimeout(t); }
+  },[e, currentBab]);
+
+  useEffect(()=>{
+    const link=document.createElement("link");
+    link.href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Zen+Maru+Gothic:wght@500;700;900&display=swap";
+    link.rel="stylesheet"; document.head.appendChild(link);
+    return ()=>{ try{document.head.removeChild(link)}catch{} }
+  },[]);
+
+  function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a; }
+
+  useEffect(()=>{
+    async function load(){
+      setLoading(true); setErr(false);
+      const isBuku2 = book===2;
+      // coba dari memory dulu (buku 1)
+      if(!isBuku2 && window.KOTOBA_DATA && Array.isArray(window.KOTOBA_DATA) && window.KOTOBA_DATA.length>0){
+        setE(window.KOTOBA_DATA); setLoading(false); return;
+      }
+      if(isBuku2 && window.KOTOBA_BUKU2_DATA && Array.isArray(window.KOTOBA_BUKU2_DATA) && window.KOTOBA_BUKU2_DATA.length>0){
+        setE(window.KOTOBA_BUKU2_DATA); setLoading(false); return;
+      }
+      try{
+        const target = isBuku2 ? "./kotoba-buku2.json" : "./kotoba.json";
+        const r=await fetch(target,{cache:"no-store"}); if(!r.ok) throw Error(); const j=await r.json(); if(!Array.isArray(j)||j.length===0) throw Error(); setE(j); setLoading(false);
+      }catch{
+        try{
+          const targetJs = isBuku2 ? "./kotoba-buku2.js" : "./kotoba.js";
+          await new Promise((res,rej)=>{ const s=document.createElement("script"); s.src=targetJs; s.onload=res; s.onerror=rej; document.head.appendChild(s); setTimeout(rej,2500); });
+          if(!isBuku2 && window.KOTOBA_DATA){ setE(window.KOTOBA_DATA); setLoading(false); return; }
+          if(isBuku2 && window.KOTOBA_BUKU2_DATA){ setE(window.KOTOBA_BUKU2_DATA); setLoading(false); return; }
+          if(window.KOTOBA_DATA){ setE(window.KOTOBA_DATA); setLoading(false); return; }
+          throw Error();
+        }catch{ setErr(true); setLoading(false); }
+      }
+    }
+    load();
+  },[book]);
+
+  useEffect(()=>{
+    if(err||loading||finished){
+      if(timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+    if(timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(()=> setTimer(v=>v+1), 1000);
+    return ()=> clearInterval(timerRef.current);
+  },[loading,err,currentBab,finished]);
+
+  const startBab = (idx)=>{
+    if(!e) return;
+    setCurrentBab(idx); setQIndex(0); setScore(0); setTimer(0); setFinished(false); setAnswered(false); setPicked("");
+    const qs = shuffle(e[idx]); setQuestions(qs); prepare(qs,0,mode,e[idx]); setKeySeed(k=>k+1);
+    setTimeout(updateScroll, 200);
+  };
+
+  const prepare = (qs,qi,md,babData)=>{
+    if(qi>=qs.length){ setFinished(true); return; }
+    const cur = qs[qi];
+    const pool = babData.filter(x=> md==="indo-jp" ? x.jp!==cur.jp : x.meaning!==cur.meaning);
+    let opts = shuffle(pool).slice(0,3); opts.push(cur); setOptions(shuffle(opts)); setAnswered(false); setPicked(""); setKeySeed(k=>k+1);
+  };
+
+  useEffect(()=>{ if(e && e.length>0 && !loading && questions.length===0){ startBab(0); } },[e, loading]);
+
+  const next = ()=>{
+    const ni = qIndex+1;
+    if(ni>=questions.length){ setFinished(true); return; }
+    setQIndex(ni); prepare(questions,ni,mode,e[currentBab]);
+  };
+
+  const answer = (val)=>{
+    if(answered || !questions[qIndex]) return;
+    const cur = questions[qIndex];
+    const correct = mode==="indo-jp" ? val===cur.jp : val===cur.meaning;
+    setAnswered(true); setPicked(val);
+    if(correct) setScore(s=>s+1);
+    setTimeout(()=> next(), 1100);
+  };
+
+  const changeMode = (md)=>{
+    if(!e) return;
+    setMode(md); setQIndex(0); setScore(0); setAnswered(false); setPicked(""); setFinished(false);
+    const qs = shuffle(e[currentBab]); setQuestions(qs); prepare(qs,0,md,e[currentBab]);
+  };
+
+  const fmt = (s)=>{ const m=Math.floor(s/60); const ss=s%60; return `${m}:${String(ss).padStart(2,"0")}` };
+  const te = questions[qIndex];
+
+  // RENDER GAME - 100% SAMA KAYAK BASE LU
+  return h("div",{className:"min-h-screen bg-[#fffef9] text-[#1c1917] selection:bg-[#1e3a8a]/10", style:{fontFamily:'"Plus Jakarta Sans", system-ui, sans-serif'}, children:[
+    h("style",{children:`
+        *{ -webkit-tap-highlight-color: transparent; }
+        button, a { cursor: pointer; }
+        .jp{ font-family: "Zen Maru Gothic", sans-serif; }
+        ::-webkit-scrollbar{ height: 6px; width: 6px; }
+        ::-webkit-scrollbar-thumb{ background:#e7e5e4; border-radius:999px; } @keyframes hyottokoBounce{0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-5px) rotate(2deg)}}
+    `}),
+    h("div",{className:"max-w-[760px] mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16", children:[
+      h("div",{className:"flex items-start sm:items-center justify-between gap-3", children:[
+        h("div",{className:"flex items-center gap-3", children:[
+          h("button",{onClick:onBack, className:"w-10 h-10 rounded-[12px] bg-white border border-[#e7e5e4] grid place-items-center text-[14px] font-black hover:border-[#1c1917] transition-colors", children:"←"}),
+          h("div",{className:`w-10 h-10 rounded-[12px] grid place-items-center text-white font-black text-[18px] shadow-sm ${book===1?"bg-[#1e3a8a]":"bg-[#ea580c]"}`, children: book===1?"あ":"ご"}),
+          h("div",{children:[
+            h("div",{className:"jp font-black text-[15px] sm:text-[17px] leading-tight tracking-tight", children: book===1?"Kotoba Minna no Nihongo I":"Kotoba Minna no Nihongo II"}),
+            h("div",{className:"text-[10px] font-bold tracking-[0.18em] text-[#57534e] mt-[2px]", children:"DWIKY KARTIWAN - ドゥウィキ カルチワン"})
+          ]})
+        ]}),
+        h("div",{className:"flex items-center gap-2 shrink-0", children:[
+          h("span",{className:"h-[30px] px-3 rounded-full bg-white border border-[#e7e5e4] text-[11px] font-semibold inline-flex items-center gap-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)]", children:[ h("span",{children:"⏱"}), " ", fmt(timer) ]}),
+          h("span",{className:"h-[30px] px-3 rounded-full bg-[#1c1917] text-white text-[11px] font-bold inline-flex items-center shadow-sm", children:[ score,"/", questions.length||0 ]})
+        ]})
+      ]}),
+
+      err ? h("div",{className:"mt-8", children:[
+        h("div",{className:"bg-white border border-[#e7e5e4] rounded-[24px] p-6 sm:p-8 shadow-[0_2px_12px_rgba(0,0,0,0.03)] relative overflow-hidden", children:[
+          h("div",{className:"absolute top-0 left-0 right-0 h-[3px] bg-[#dc2626]"}),
+          h("h2",{className:"jp text-[34px] font-black leading-none", children:"Error"}),
+          h("p",{className:"mt-3 text-[13px] font-semibold text-[#7f1d1d]", children: book===2?"Buku 2 belum ada, siapin Excel BAB 26-50 ya!":"Kotoba tidak ditemukan, Hubungi Dwiky!"})
+        ]}),
+        h("button",{onClick:()=>book===2?onBack():window.location.reload(), className:"mt-5 h-[44px] px-5 rounded-[12px] bg-[#0c0a09] text-white text-[13px] font-bold", children: book===2?"Kembali ←":"Coba Lagi ↺"})
+      ]}) : h(Fragment,{children:[
+        // BAB LIST
+        h("div",{className:"mt-6 flex items-center gap-2", children:[
+          h("button",{onClick:()=>scrollBab(-1), className:`shrink-0 w-8 h-8 rounded-full border bg-white shadow-sm grid place-items-center text-[16px] font-black transition-all ${canScrollLeft?"border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white active:scale-90":"border-[#e7e5e4] text-[#57534e] hover:border-[#a8a29e]"}`, children:"‹"}),
+          h("div",{ref:babScrollRef, onScroll:updateScroll, className:"flex-1 flex gap-2 overflow-x-auto scroll-smooth px-1 py-1", style:{scrollbarWidth:"none", msOverflowStyle:"none"}, children: e ? e.map((bab,i)=>{
+            const active=i===currentBab;
+            return h("button",{key:i, onClick:()=>startBab(i), className:`shrink-0 h-[36px] px-4 rounded-full border text-[12px] font-bold inline-flex items-center gap-2 transition-all active:scale-[0.98] ${active?(book===1?"bg-[#1e3a8a] border-[#1e3a8a] text-white shadow-sm":"bg-[#ea580c] border-[#ea580c] text-white shadow-sm"):"bg-white border-[#e7e5e4] text-[#57534e] hover:border-[#a8a29e]"}`, children:[
+              h("span",{children:`BAB ${i+1+(book===1?0:25)}`}),
+              h("span",{className:`min-w-[20px] h-[18px] px-1.5 rounded-full grid place-items-center text-[10px] font-extrabold ${active?"bg-white/20 text-white":"bg-[#f5f0e8] text-[#57534e]"}`, children:bab.length})
+            ]})
+          }) : Array.from({length:10}).map((_,i)=> h("div",{key:i, className:"shrink-0 h-[36px] w-[84px] rounded-full bg-[#f5f0e8] border border-[#e7e5e4] animate-pulse"}))
+          }),
+          h("button",{onClick:()=>scrollBab(1), className:`shrink-0 w-8 h-8 rounded-full border bg-white shadow-sm grid place-items-center text-[16px] font-black transition-all ${canScrollRight?"border-[#1e3a8a] text-[#1e3a8a] hover:bg-[#1e3a8a] hover:text-white active:scale-90":"border-[#e7e5e4] text-[#57534e] hover:border-[#a8a29e]"}`, children:"›"})
+        ]}),
+        // MODE SWITCH
+        h("div",{className:"mt-4 grid grid-cols-2 gap-1.5 p-1.5 bg-[#f5f0e8] border border-[#e7e5e4] rounded-[16px]", children:[
+          h("button",{onClick:()=>changeMode("indo-jp"), className:`h-[44px] rounded-[12px] text-[12px] font-bold leading-tight transition-all active:scale-[0.98] ${mode==="indo-jp"?"bg-[#0c0a09] text-white shadow-sm":"bg-transparent text-[#57534e] hover:bg-white/70"}`, children:[
+            h("span",{className:"text-[16px] leading-none", children:"インドネシア → 日本"}),
+            h("br",{}),
+            h("span",{className:"text-[10px] opacity-70 font-semibold tracking-wide", children:"IND → JPN"})
+          ]}),
+          h("button",{onClick:()=>changeMode("jp-indo"), className:`h-[44px] rounded-[12px] text-[12px] font-bold leading-tight transition-all active:scale-[0.98] ${mode==="jp-indo"?"bg-[#0c0a09] text-white shadow-sm":"bg-transparent text-[#57534e] hover:bg-white/70"}`, children:[
+            h("span",{className:"text-[16px] leading-none", children:"日本 → インドネシア"}),
+            h("br",{}),
+            h("span",{className:"text-[10px] opacity-60 font-semibold tracking-wide", children:"JPN → IND"})
+          ]})
+        ]}),
+        h("div",{className:"mt-4 flex items-center justify-between", children:[
+          h("span",{className:"text-[10px] font-bold tracking-[0.12em] text-[#a8a29e]", children:`BAB ${currentBab+1+(book===1?0:25)} • ${mode==="indo-jp"?"INDONESIA → JEPANG":"JEPANG → INDONESIA"}`}),
+          h("span",{className:"text-[10px] font-bold tracking-wide text-[#a8a29e]", children:`${qIndex+1}/${questions.length||0}`})
+        ]}),
+        h("div",{className:"mt-2 h-[6px] rounded-full bg-[#e7e5e4] overflow-hidden", children: h("div",{className:`h-full rounded-full transition-all duration-300 ${book===1?"bg-[#0c0a09]":"bg-[#ea580c]"}`, style:{width:`${questions.length?(qIndex+(answered?1:0))/questions.length*100:0}%`}})}),
+
+        loading || !te ? h("div",{className:"mt-4 bg-white rounded-[24px] border border-[#e7e5e4] p-6 min-h-[132px] animate-pulse"}) :
+        finished ? h("div",{className:"mt-4 bg-white border border-[#e7e5e4] rounded-[24px] p-8 text-center shadow-sm relative overflow-hidden", children:[
+          h("div",{className:`absolute top-0 left-0 right-0 h-[3px] ${book===1?"bg-[#1e3a8a]":"bg-[#ea580c]"}`,}),
+          h("div",{className:"mx-auto relative w-14 h-14 grid place-items-center", children:[ h("div",{className:"absolute inset-0 rounded-full bg-[#fef3c7]/50 animate-pulse opacity-40"}), h("img",{src:"./hyottoko.png", alt:"hyottoko", className:"relative w-14 h-14 object-contain", style:{animation:"hyottokoBounce 1.2s ease-in-out infinite"} }) ]}),
+          h("h3",{className:"jp text-[26px] font-black mt-4", children:"Otsukaresama!"}),
+          h("div",{className:"mt-5 inline-flex flex-col items-center gap-2 px-5 py-3 rounded-[16px] bg-[#f5f0e8] border border-[#e7e5e4]", children:[
+            h("div",{className:"flex items-baseline gap-2", children:[
+              h("span",{className:"text-[28px] font-black text-[#1c1917]", children: score + "/" + questions.length}),
+              h("span",{className:"ml-2 px-2.5 py-1 rounded-full text-[11px] font-black bg-[#1e3a8a] text-white", children: (questions.length?Math.round(score/questions.length*100):0) + "%"})
+            ]}),
+            h("div",{className:"text-[11px] font-bold text-[#57534e] flex items-center gap-2", children:["⏱ " + fmt(timer) + " • BAB " + (currentBab+1+(book===1?0:25)) + " • " + (score/questions.length>=0.8?"Sugoi! 🎉":score/questions.length>=0.5?"Ii ne! 👍":"Ganbatte! 💪")]})
+          ]}),
+          h("div",{className:"mt-6 grid grid-cols-2 gap-3", children:[
+            h("button",{onClick:()=>startBab(currentBab), className:"h-[48px] rounded-[14px] border border-[#e7e5e4] bg-white font-bold text-[13px]", children:"Ulangi ↺"}),
+            h("button",{onClick:()=>startBab((currentBab+1)%(e?.length||10)), className:`h-[48px] rounded-[14px] text-white font-bold text-[13px] ${book===1?"bg-[#1e3a8a]":"bg-[#ea580c]"}`, children:"BAB Lain →"})
+          ]})
+        ]}) : h(Fragment,{children:[
+          h("div",{key:keySeed, className:"mt-4 bg-white rounded-[24px] border border-[#e7e5e4] shadow-[0_2px_12px_rgba(0,0,0,0.03)] relative overflow-hidden p-5 sm:p-6 min-h-[132px] transition-all", children:[
+            h("div",{className:`absolute top-0 left-0 right-0 h-[3px] ${book===1?"bg-[#1e3a8a]":"bg-[#ea580c]"}`,}),
+            h("div",{className:"flex justify-between gap-4", children:[
+              h("div",{className:"flex-1 min-w-0", children:[
+                h("div",{className:"flex items-center gap-2", children:[
+                  h("span",{className:"h-[22px] px-2.5 rounded-full bg-[#f5f0e8] border border-[#e7e5e4] text-[10px] font-extrabold tracking-[0.08em] inline-flex items-center text-[#44403c]", children:`PERTANYAAN • ${qIndex+1}`}),
+                  h("span",{className:"text-[11px] text-[#a8a29e] font-medium", children:"tebak artinya"})
+                ]}),
+                mode==="indo-jp" ? h(Fragment,{children:[
+                  h("h2",{className:"mt-5 font-extrabold leading-[1.1] tracking-tight", style:{fontSize:"26px", fontFamily:'"Plus Jakarta Sans", system-ui, sans-serif'}, children: te.meaning}),
+                  h("div",{className:"mt-2 text-[12px] text-[#78716c] font-medium", children:"Pilih bahasa Jepang yang benar"})
+                ]}) : h(Fragment,{children:[
+                  h("div",{className:"flex items-baseline gap-3", children:[
+                    h("h2",{className:"jp mt-4 font-black leading-[1.05] tracking-tight", style:{fontSize:"36px"}, children: te.kana}),
+                    te.kanji && te.kanji !== te.kana && h("span",{className:"jp text-[22px] font-bold text-[#78716c] ml-2", children: te.kanji})
+                  ]}),
+                  showRomaji && h("div",{className:"mt-1 text-[12px] text-[#78716c] italic font-medium tracking-wide animate-pulse", children: te.jp}),
+                  h("div",{className:"mt-3 text-[12px] text-[#78716c]", children:"Pilih arti Indonesia yang benar"})
+                ]})
+              ]}),
+              h("button",{onClick:()=>setShowRomaji(v=>!v), className:`shrink-0 h-[40px] px-3.5 rounded-[16px] border text-[11px] font-bold leading-tight transition-all active:scale-[0.96] select-none ${showRomaji?(book===1?"bg-[#1e3a8a] border-[#1e3a8a] text-white":"bg-[#ea580c] border-[#ea580c] text-white"):"bg-[#fffef9] border-[#e7e5e4] text-[#1c1917] hover:border-[#a8a29e] hover:bg-white"}`, children:[ h("span",{className:"text-[13px]", children:"👁"}), h("br",{}), "ローマ字" ]})
+            ]})
+          ]}),
+          h("div",{className:"mt-4 grid gap-2.5", children: options.map((opt)=>{
+            const isCorrect = mode==="indo-jp" ? opt.jp===te.jp : opt.meaning===te.meaning;
+            const isPicked = mode==="indo-jp" ? picked===opt.jp : picked===opt.meaning;
+            let btnClass = "w-full min-h-[64px] rounded-[16px] border px-4 sm:px-5 flex justify-between items-center transition-all active:scale-[0.98] text-left ";
+            let iconClass = "w-8 h-8 rounded-full border grid place-items-center text-[12px] font-bold transition-all shrink-0 ml-3 ";
+            if(!answered){ btnClass+="bg-white border-[#e7e5e4] hover:border-[#a8a29e] hover:bg-[#fffaf0] "; iconClass+="bg-[#f5f0e8] border-[#e7e5e4] text-[#57534e] "; }
+            else if(isCorrect){ btnClass+="bg-[#f0fdf4] border-[#16a34a] shadow-[0_0_0_2px_rgba(22,163,74,0.12)] "; iconClass+="bg-[#16a34a] border-[#16a34a] text-white "; }
+            else if(isPicked && !isCorrect){ btnClass+="bg-[#fef2f2] border-[#dc2626] shadow-[0_0_0_2px_rgba(220,38,38,0.12)] "; iconClass+="bg-[#dc2626] border-[#dc2626] text-white "; }
+            else { btnClass+="bg-white border-[#e7e5e4] opacity-60 "; iconClass+="bg-[#f5f0e8] border-[#e7e5e4] text-[#a8a29e] "; }
+            return h("button",{key: mode==="indo-jp"?opt.jp:opt.meaning, onClick:()=>answer(mode==="indo-jp"?opt.jp:opt.meaning), disabled:answered, className:btnClass, children:[
+              h("span",{className:"flex flex-col min-w-0", children: mode==="indo-jp" ? h(Fragment,{children:[
+                h("div",{className:"flex items-baseline gap-3", children:[
+                  h("span",{className:"jp text-[17px] font-bold leading-tight truncate", children: opt.kana}),
+                  opt.kanji && opt.kanji !== opt.kana && h("span",{className:"jp text-[13px] font-medium text-[#78716c] ml-2", children: opt.kanji})
+                ]}),
+                showRomaji && h("span",{className:"text-[11px] text-[#78716c] italic mt-0.5", children: opt.jp})
+              ]}) : h("span",{className:"text-[15px] font-semibold leading-tight", children: opt.meaning})
+              }),
+              h("span",{className:iconClass, children: answered ? (isCorrect ? "✓" : isPicked ? "✕" : "→") : "→"})
+            ]})
+          })}),
+          h("div",{className:`mt-3 rounded-[14px] px-4 py-3 text-[12px] font-semibold leading-relaxed transition-all ${!answered?"hidden": (mode==="indo-jp"?picked===te.jp:picked===te.meaning)?"flex bg-[#f0fdf4] border border-[#bbf7d0] text-[#14532d]":"flex bg-[#fef2f2] border border-[#fecaca] text-[#7f1d1d]"}`, children: answered && h(Fragment,{children: (mode==="indo-jp"?picked===te.jp:picked===te.meaning) ? 
+            h("span",{className:"inline-flex gap-1.5 items-center", children:[ h("span",{className:"w-5 h-5 rounded-full bg-[#16a34a] text-white grid place-items-center text-[10px]", children:"✓"}), `Benar! `, h("span",{className:"jp font-bold ml-1", children: te.kana}), ` (${te.jp}) = ${te.meaning}` ]}) :
+            h("span",{className:"inline-flex gap-1.5 items-center", children:[ h("span",{className:"w-5 h-5 rounded-full bg-[#dc2626] text-white grid place-items-center text-[10px]", children:"✕"}), `Jawaban: `, h("span",{className:"jp font-bold", children: te.kana}), ` (${te.jp}) – ${te.meaning}` ]})
+          })})
+        ]})
+      ]}),
+      h("div",{className:"mt-10 text-center text-[10px] font-semibold tracking-wide text-[#a8a29e]", children:"© DWIKY KARTIWAN • Minna no Nihongo N5"}),
+      e && h("div",{className:"mt-4 text-center text-[10px] text-[#a8a29e] font-medium", children:`2026  •  Loaded ${e.length} BAB`})
+    ]})
+  ]})
+}
+
+
+
+
+function Root(){
+  const [book,setBook]=useState(null);
+  return book===null ? h(BookSelect,{onSelect:setBook}) : h(Game,{book, onBack:()=>setBook(null)});
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(h(React.StrictMode,{children:h(Root)}));
+</script>
+</body>
+</html>
